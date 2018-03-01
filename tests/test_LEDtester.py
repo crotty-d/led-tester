@@ -10,8 +10,9 @@ import pytest
 
 from click.testing import CliRunner
 
-from LEDtester import LEDtester
+from LEDtester import LEDtester #TODO: Maybe avoid naming module and package same name, LEDtester?
 from LEDtester import cli
+from LEDtester import utils
 
 
 @pytest.fixture
@@ -39,3 +40,9 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+
+    
+def test_file_parse():
+    ifile = "./data/test_data.txt"
+    N, instructions = utils.parseFile(ifile)
+    assert N is not None
