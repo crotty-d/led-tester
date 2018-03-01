@@ -6,11 +6,10 @@ import click
 
 
 @click.command()
-def main(args=None):
+@click.option("--input", default=None, help="input URI (file or URL)")
+def main(input=None):
     """Console script for LEDtester."""
-    click.echo("Replace this message by putting your code into "
-               "LEDtester.cli.main")
-    click.echo("See click documentation at http://click.pocoo.org/")
+    print('input', input)
     return 0
 
 
