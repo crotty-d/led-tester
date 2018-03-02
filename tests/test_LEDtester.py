@@ -3,6 +3,7 @@
 
 """Tests for `LEDtester` package."""
 
+import os
 import sys
 sys.path.append('.')
 
@@ -40,9 +41,11 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
-
-    
+ 
 def test_file_parse():
     ifile = "./data/test_data.txt"
-    N, instructions = utils.parseFile(ifile)
+    N, instructions = utils.parseFile(ifile) # FIXME
     assert N is not None
+    
+if __name__ == '__main__':
+    print(os.getcwd())
