@@ -19,7 +19,7 @@ def main(input=None):
     for instruction in instructions:
         ledgrid.apply(instruction)
 
-    print('Number occupied: ', ledgrid.countOn()) 
+    print(ledgrid.count(), 'LEDs are on.') 
         
     return 0
 
