@@ -3,7 +3,7 @@
 
 """Tests for `LEDtester` package."""
 
-import os
+#ximport os
 import sys
 sys.path.append('.')
 
@@ -11,7 +11,7 @@ import pytest
 
 from click.testing import CliRunner
 
-from LEDtester import LEDtester #TODO: Maybe avoid naming module and package same name, LEDtester?
+from LEDtester import LEDtester # TODO: Maybe avoid naming module and package same name, LEDtester?
 from LEDtester import cli
 from LEDtester import utils
 
@@ -44,8 +44,10 @@ def test_command_line_interface():
  
 def test_file_parse():
     ifile = "./data/test_data.txt"
-    N, instructions = utils.parseFile(ifile) # FIXME
+    N, instructions = utils.parseFile(ifile)
     assert N is not None
+    # TODO assert instructions content
     
 if __name__ == '__main__':
-    print(os.getcwd())
+    sys.exit()
+    #xprint(os.getcwd())
