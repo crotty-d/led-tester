@@ -18,18 +18,17 @@ from LEDtester import utils
 
 @pytest.fixture
 def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
     """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+    Test uri request
+    """
+    import requests
+    return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
 def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+    """Test content from response from uri (fixture)"""
+    from bs4 import BeautifulSoup
+    assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
 def test_command_line_interface():
@@ -44,10 +43,9 @@ def test_command_line_interface():
  
 def test_file_parse(): # TODO possibly add @fixture and input to test_LEDsimulator? Independence?
     ifile = "./data/test_data.txt"
-    N, instructions = utils.parseFile(ifile)
-    assert N == 10
+    L, instructions = utils.parseFile(ifile)
+    assert L == 10
     assert instructions == ['turn on 0,0 through 9,9\n', 'turn off 0,0 through 9,9\n', 'switch 0,0 through 9,9\n', 'turn off 0,0 through 9,9\n', 'turn on 2,2 through 7,7']
-    # TODO assert instructions content
     
 # TODO def test_LEDsimulator():
 
