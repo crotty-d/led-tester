@@ -2,7 +2,7 @@
 
 import requests
 
-# TODO 3 functions?: parse_file calls parse_lines and parse_instructions (regex parse)
+# TODO 3 functions?: parse_file calls parse_lines and parse_instructions (regex parse); instruction_parser class as part of LSDtester?
 
 def parseFile(input): #TODO: if/else to read into common variable, then parse this variable
 
