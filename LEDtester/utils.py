@@ -2,6 +2,8 @@
 
 import requests
 
+# TODO 3 functions?: parse_file calls parse_lines and parse_instructions (regex parse)
+
 def parseFile(input): #TODO: if/else to read into common variable, then parse this variable
 
     if input.startswith('http'):
@@ -9,14 +11,14 @@ def parseFile(input): #TODO: if/else to read into common variable, then parse th
         r = requests.get(uri).text
         print('\n'.join(r.split('\n')[:5]))
     else:
-        # read from disk
-        N, instructions = None, []
+        # Read from local file
+        L, instructions = None, []
         with open(input, 'r') as f:
-            N = int(f.readline())
+            L = int(f.readline())
             for line in f.readlines():
                 instructions.append(line)
-        # haven't written the code yet...
-        return N, instructions
+                                
+        return L, instructions
     return
 
 if __name__ == '__main__':

@@ -12,14 +12,14 @@ from LEDtester import utils, LEDsimulator
 def main(input=None):
     """Console script for led_sim."""
     print('input', input)
-    N, instructions = utils.parseFile(input)
+    L, instructions = utils.parseFile(input)
 
-    led_sim = LEDsimulator(N)
+    led_sim = LEDsimulator(L)
 
     for instruction in instructions:
         led_sim.apply(instruction)
 
-    print('Number occupied: ', led_sim.countOccupied()) 
+    print('Number occupied: ', led_sim.countOn()) 
         
     return 0
 
