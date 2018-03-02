@@ -41,7 +41,7 @@ def test_command_line_interface():
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
  
-def test_file_parse(): # TODO possibly add @fixture and input to test_LEDsimulator? Independence?
+def test_parse_file(): # TODO possibly add @fixture and input to test_LEDsimulator? Independence?
     ifile = "./data/test_data.txt"
     L, instructions = utils.parseFile(ifile)
     assert L == 10
