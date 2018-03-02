@@ -5,7 +5,7 @@
 import click
 click.disable_unicode_literals_warning = True
 
-from LEDtester import utils, LEDgrid
+from LEDtester import utils, LEDsimulator
 
 @click.command()
 @click.option("--input", default=None, help="input URI (file or URL)")
@@ -14,7 +14,7 @@ def main(input=None):
     print('input', input)
     L, instructions = utils.parseFile(input)
 
-    led_sim = LEDgrid(L)
+    ledgrid = LEDsimulator.LEDgrid(L)
 
     for instruction in instructions:
         ledgrid.apply(instruction)

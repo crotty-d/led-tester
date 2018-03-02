@@ -7,7 +7,7 @@ class LEDgrid:
     Class to represent grid of LEDs that be turned on and off in response to certain instructions
     """
     
-    self.lights = none
+    lights = None
     
     def __init__(self, L):
         self.lights = np.zeros((L,L), np.int8)
