@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 
-"""Console script for LEDtester."""
+"""Console script for led_sim."""
 
 import click
 click.disable_unicode_literals_warning = True
 
-from LEDtester import utils, LEDtester
+from LEDtester import utils, LEDsimulator
 
 @click.command()
 @click.option("--input", default=None, help="input URI (file or URL)")
 def main(input=None):
-    """Console script for LEDtester."""
+    """Console script for led_sim."""
     print('input', input)
     N, instructions = utils.parseFile(input)
 
-    ledTester = LEDtester(N)
+    led_sim = LEDsimulator(N)
 
     for instruction in instructions:
-        ledTester.apply(instruction)
+        led_sim.apply(instruction)
 
-    print('Number occupied: ', ledTester.countOccupied()) 
+    print('Number occupied: ', led_sim.countOccupied()) 
         
     return 0
 
