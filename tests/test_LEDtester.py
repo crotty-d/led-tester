@@ -25,9 +25,9 @@ def test_command_line_interface():
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
  
-def test_parse_file(): # TODO possibly add @fixture and input to test_LEDsimulator? Independence?
-    ifile = "./data/test_data.txt"
-    L, instructions = utils.parseFile(ifile)
+def test_parse_file():
+    file = "./data/test_data.txt"
+    L, instructions = utils.parse_file(file)
     assert L == 10
     assert instructions == ['turn on 0,0 through 9,9', 'turn off 0,0 through 9,9', 'switch 0,0 through 9,9', 'turn off 0,0 through 9,9', 'turn on 2,2 through 7,7']
   

@@ -12,14 +12,14 @@ from LEDtester import utils, LEDsimulator
 def main(input=None):
     """Console script for led_sim."""
     print('input', input)
-    L, instructions = utils.parseFile(input)
+    L, instructions = utils.parse_file(input)
 
-    ledgrid = LEDsimulator.LEDgrid(L)
+    grid = LEDsimulator.LEDgrid(L)
 
     for instruction in instructions:
-        ledgrid.apply(instruction)
+        grid.apply(instruction)
 
-    print(ledgrid.count(), 'LEDs are on.') 
+    print(grid.count(), 'LEDs are on.') 
         
     return 0
 

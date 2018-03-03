@@ -29,7 +29,7 @@ def test_content(response):
 
 def test_parse_from_uri():
     uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
-    L, instructions = utils.parseFile(uri)
+    L, instructions = utils.parse_file(uri)
     assert L == 1000
     assert instructions[0:3] == ['turn off 660,55 through 986,197', 'turn off 341,304 through 638,850', 'turn off 199,133 through 461,193']
     assert instructions[-1] == 'switch 296,687 through 906,775'

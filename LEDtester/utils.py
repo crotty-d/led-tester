@@ -2,7 +2,7 @@
 
 import requests
 
-def parseFile(file_location):
+def parse_file(file_location):
     if file_location.startswith('http'):
         # Get instructions text from uri
         uri = file_location
