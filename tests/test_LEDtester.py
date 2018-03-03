@@ -68,6 +68,8 @@ def test_LEDsim_instruct_on():
     instruction = 'turn on 0,0 through 9,9\n'
     grid.apply(instruction)
     
+    print(grid.lights)
+    
     # Check on/off pattern correct
     on_coords = ((0,0), (5,5), (0,9), (9,0))
     off_coords = ((10,10), (15,15), (0,10), (10,0))
@@ -86,6 +88,8 @@ def test_LEDsim_instruct_bounds():
     instruction = 'turn on 0,0 through 15,5\n'
     grid.apply(instruction)
     
+    print(grid.lights)
+    
     # Check on/off pattern correct
     on_coords = ((0,0), (5,5), (0,5), (9,0))
     off_coords = ((9,9), (9,6), (0,9), (9,6))
@@ -100,5 +104,4 @@ def test_LEDsim_instruct_bounds():
 
     
 if __name__ == '__main__':
-    test_LEDinstruct()
     sys.exit()

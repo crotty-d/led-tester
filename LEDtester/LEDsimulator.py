@@ -24,7 +24,9 @@ class LEDgrid:
         parts = pattern.match(instruction).groups()
         # Assign command to apply and the coordinates of the effected lights
         cmd = parts[0]
-        x1, x2, y1, y2 = parts[1], parts[2], parts[3], parts[4]
+        coords = [min(int(p), self.lights.shape[0] - 1) for p in parts[1:]] # min used in case instruction out of grid bounds
+        x1, y1, x2, y2 = coords
+        print(x1, y1, x2, y2)
         
         # Apply command to grid of lights
         if cmd == 'turn on':
