@@ -8,6 +8,7 @@ import sys
 sys.path.append('.')
 
 import pytest
+import numpy as np
 
 from click.testing import CliRunner
 
@@ -50,24 +51,36 @@ def test_parse_file(): # TODO possibly add @fixture and input to test_LEDsimulat
 def test_LEDconstruct():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
-    assert grid.shape == (L, L)
-    assert grid.sum == 0
+    assert isinstance(grid.lights, np.ndarray)
+    assert grid.lights.shape == (L, L)
+    assert grid.lights.sum() == 0
     
 def test_LEDcount():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
     assert grid.count() == 0
-    grid[2:5, 1:3] = 1
+    grid.lights[2:5, 1:3] = 1
     assert grid.count() == 6 
 
-# def test_LEDon():
-#     L = 10
-#     ledgrid = LEDsimulator.LEDgrid(L)
-#     instruction = 'turn on 0,0 through 9,9\n'
-#     ledgrid.apply(instruction)
-#     assert ledgrid.count() == L
+def test_LEDinstruct():
+    L = 20
+    grid = LEDsimulator.LEDgrid(L)
+    instruction = 'turn on 0,0 through 9,9\n'
+    grid.apply(instruction)
+    
+    # Check on/off pattern correct
+    on_coords = ((0,0), (5,5), (0,9), (9,0))
+    off_coords = ((10,10), (15,15), (0,10), (10,0))
+    
+    for coord in on_coords:
+        assert grid.lights[coord[0], coord[1]] == 1
+    for coord in off_coords:
+        assert grid.lights[coord[0], coord[1]] == 0
+        
+    # Check count
+    assert grid.count() == 81  
 
     
 if __name__ == '__main__':
+    test_LEDinstruct()
     sys.exit()
-    #xprint(os.getcwd())
