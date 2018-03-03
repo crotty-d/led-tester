@@ -47,6 +47,13 @@ def test_parse_file(): # TODO possibly add @fixture and input to test_LEDsimulat
     L, instructions = utils.parseFile(ifile)
     assert L == 10
     assert instructions == ['turn on 0,0 through 9,9\n', 'turn off 0,0 through 9,9\n', 'switch 0,0 through 9,9\n', 'turn off 0,0 through 9,9\n', 'turn on 2,2 through 7,7']
+
+def test_parse_from_uri():
+    uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+    L, instructions = utils.parseFile(uri)
+    assert L != None
+    assert len(instructions) > 2
+
     
 def test_LEDsim_construct():
     L = 10
