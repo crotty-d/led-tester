@@ -78,7 +78,7 @@ def test_LEDinstruct():
         assert grid.lights[coord[0], coord[1]] == 0
         
     # Check count
-    assert grid.count() == 81  
+    assert grid.count() == 100  
 
     
 if __name__ == '__main__':

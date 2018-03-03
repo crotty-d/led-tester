@@ -27,9 +27,9 @@ class LEDgrid:
         coord = [int(i) for i in parts[1:]]
         
         if cmd == 'turn on':
-            self.lights[coord[0]:coord[2], coord[1]:coord[3]] = 1
+            self.lights[coord[0]:coord[2]+1, coord[1]:coord[3]+1] = 1
         elif cmd == 'turn off':
-            self.lights[coord[0]:coord[2], coord[1]:coord[3]] = 0
+            self.lights[coord[0]:coord[2]+1, coord[1]:coord[3]+1] = 0
         elif cmd == 'switch':
             # Get indices of lights that are off (0) and then those that are on (1)
             idx_zeros = np.where(self.lights == 0)
