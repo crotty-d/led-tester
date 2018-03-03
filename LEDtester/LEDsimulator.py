@@ -12,7 +12,7 @@ class LEDgrid:
     
     # Constructor
     def __init__(self, L):
-        """Constructs an instance of a LED light grid"""
+        """Creates an instance of the LED light grid"""
         self.lights = np.zeros((L,L), np.int8)
     
     # Methods    
@@ -22,14 +22,15 @@ class LEDgrid:
         # Parse instruction via regular expressions
         pattern = re.compile(".*(turn on|turn off|switch)\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*through\s*([+-]?\d+)\s*,\s*([+-]?\d+).*")
         parts = pattern.match(instruction).groups()
-        
+        # Assign command to apply and the coordinates of the effected lights
         cmd = parts[0]
-        coord = [int(i) for i in parts[1:]]
+        x1, x2, y1, y2 = parts[1], parts[2], parts[3], parts[4]
         
+        # Apply command to grid of lights
         if cmd == 'turn on':
-            self.lights[coord[0]:coord[2]+1, coord[1]:coord[3]+1] = 1
+            self.lights[x1:x2+1, y1:y2+1] = 1 # ranges are inclusive, hence +1
         elif cmd == 'turn off':
-            self.lights[coord[0]:coord[2]+1, coord[1]:coord[3]+1] = 0
+            self.lights[x1:x2+1, y1:y2+1] = 0
         elif cmd == 'switch':
             # Get indices of lights that are off (0) and then those that are on (1)
             idx_zeros = np.where(self.lights == 0)
