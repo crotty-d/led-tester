@@ -3,7 +3,6 @@
 
 """Tests for `LEDtester` package."""
 
-#ximport os
 import sys
 sys.path.append('.')
 
@@ -15,22 +14,6 @@ from click.testing import CliRunner
 from LEDtester import LEDsimulator
 from LEDtester import cli
 from LEDtester import utils
-
-
-@pytest.fixture
-def response():
-    """
-    Test uri request
-    """
-    import requests
-    return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
- 
- 
-def test_content(response):
-    """Test content from response from uri (fixture)"""
-    from bs4 import BeautifulSoup
-    assert 'GitHub' in BeautifulSoup(response.content).title.string
-
 
 def test_command_line_interface():
     """Test the CLI."""
@@ -46,15 +29,8 @@ def test_parse_file(): # TODO possibly add @fixture and input to test_LEDsimulat
     ifile = "./data/test_data.txt"
     L, instructions = utils.parseFile(ifile)
     assert L == 10
-    assert instructions == ['turn on 0,0 through 9,9\n', 'turn off 0,0 through 9,9\n', 'switch 0,0 through 9,9\n', 'turn off 0,0 through 9,9\n', 'turn on 2,2 through 7,7']
-
-def test_parse_from_uri():
-    uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
-    L, instructions = utils.parseFile(uri)
-    assert L != None
-    assert len(instructions) > 2
-
-    
+    assert instructions == ['turn on 0,0 through 9,9', 'turn off 0,0 through 9,9', 'switch 0,0 through 9,9', 'turn off 0,0 through 9,9', 'turn on 2,2 through 7,7']
+  
 def test_LEDsim_construct():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
@@ -76,7 +52,7 @@ def test_LEDsim_count():
 def test_LEDsim_instruct_on():
     L = 20
     grid = LEDsimulator.LEDgrid(L)
-    instruction = 'turn on 0,0 through 9,9\n'
+    instruction = 'turn on 0,0 through 9,9'
     grid.apply(instruction)
     
     print(grid.lights)
@@ -97,7 +73,7 @@ def test_LEDsim_instruct_switch():
     L = 20
     grid = LEDsimulator.LEDgrid(L)
     grid.lights[0:10, 0:10] = 1
-    instruction = 'switch 0,0 through 10,10\n'
+    instruction = 'switch 0,0 through 10,10'
     grid.apply(instruction)
     
     print(grid.lights)
@@ -117,7 +93,7 @@ def test_LEDsim_instruct_switch():
 def test_LEDsim_instruct_bounds():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
-    instruction = 'turn on 0,0 through 15,5\n'
+    instruction = 'turn on 0,0 through 15,5'
     grid.apply(instruction)
     
     print(grid.lights)
@@ -141,7 +117,7 @@ def test_LEDsim_instruct_invalid():
     grid.lights[0:10, 0:10] = 1
     count_init = grid.count()
     # Apply invalid instructions
-    instructions = ['activate 5,5 through 15,15\n', 'turn off 5,s through 15,15\n', 'turn on 5,5 to 15,15']
+    instructions = ['activate 5,5 through 15,15', 'turn off 5,s through 15,15', 'turn on 5,5 to 15,15']
     for instruct in instructions:
         grid.apply(instruct)
     
