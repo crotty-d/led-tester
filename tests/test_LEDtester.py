@@ -17,19 +17,19 @@ from LEDtester import cli
 from LEDtester import utils
 
 
-# @pytest.fixture
-# def response():
-#     """
-#     Test uri request
-#     """
-#     import requests
-#     return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
-#  
-#  
-# def test_content(response):
-#     """Test content from response from uri (fixture)"""
-#     from bs4 import BeautifulSoup
-#     assert 'GitHub' in BeautifulSoup(response.content).title.string
+@pytest.fixture
+def response():
+    """
+    Test uri request
+    """
+    import requests
+    return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+ 
+ 
+def test_content(response):
+    """Test content from response from uri (fixture)"""
+    from bs4 import BeautifulSoup
+    assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
 def test_command_line_interface():
