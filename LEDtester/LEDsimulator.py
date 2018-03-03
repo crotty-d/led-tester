@@ -35,8 +35,8 @@ class LEDgrid:
             self.lights[x1:x2+1, y1:y2+1] = 0
         elif cmd == 'switch':
             # Get indices of lights that are off (0) and then those that are on (1)
-            idx_zeros = np.where(self.lights == 0)
-            idx_ones = np.where(self.lights == 1)
+            idx_zeros = np.where(self.lights[x1:x2+1, y1:y2+1] == 0)
+            idx_ones = np.where(self.lights[x1:x2+1, y1:y2+1] == 1)
             # Switch them to opposite value
             self.lights[idx_zeros] = 1
             self.lights[idx_ones] = 0

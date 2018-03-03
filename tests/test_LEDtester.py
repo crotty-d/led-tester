@@ -51,6 +51,7 @@ def test_parse_file(): # TODO possibly add @fixture and input to test_LEDsimulat
 def test_LEDsim_construct():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
+    print(grid.lights)
     assert isinstance(grid.lights, np.ndarray)
     assert grid.lights.shape == (L, L)
     assert grid.lights.sum() == 0
@@ -58,8 +59,11 @@ def test_LEDsim_construct():
 def test_LEDsim_count():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
+    print(grid.lights)
     assert grid.count() == 0
+    
     grid.lights[2:5, 1:3] = 1
+    print(grid.lights)
     assert grid.count() == 6 
 
 def test_LEDsim_instruct_on():
@@ -82,6 +86,27 @@ def test_LEDsim_instruct_on():
     # Check count
     assert grid.count() == 100
     
+def test_LEDsim_instruct_switch():
+    L = 20
+    grid = LEDsimulator.LEDgrid(L)
+    grid.lights[0:10, 0:10] = 1
+    instruction = 'switch 0,0 through 10,10\n'
+    grid.apply(instruction)
+    
+    print(grid.lights)
+    
+    # Check on/off pattern correct
+    on_coords = ((10,0), (0,10), (4,10), (10,10))
+    off_coords = ((0,0), (9,9), (0,9), (9,0))
+    
+    for coord in on_coords:
+        assert grid.lights[coord[0], coord[1]] == 1
+    for coord in off_coords:
+        assert grid.lights[coord[0], coord[1]] == 0
+        
+    # Check count
+    assert grid.count() == 11 + 10
+    
 def test_LEDsim_instruct_bounds():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
@@ -100,8 +125,27 @@ def test_LEDsim_instruct_bounds():
         assert grid.lights[coord[0], coord[1]] == 0
         
     # Check count
-    assert grid.count() == 60  
+    assert grid.count() == 60
+    
+# def test_LEDsim_instruct_all():
+#     L = 20
+#     grid = LEDsimulator.LEDgrid(L)
+#     instructions = ('turn on 0,0 through 9,9\n', 'turn off 0,0 through 4,4\n', 'switch 0,0 through 9,9\n')
+#     for i in instructions:
+#         grid.apply(instruction)
+#     
+#     print(grid.lights)
+#     
+#     # Check on/off pattern correct
+#     on_coords = ((0,0), (5,5), (0,9), (9,0))
+#     off_coords = ((10,10), (15,15), (0,10), (10,0))
+#     
+#     for coord in on_coords:
+#         assert grid.lights[coord[0], coord[1]] == 1
+#     for coord in off_coords:
+#         assert grid.lights[coord[0], coord[1]] == 0
 
     
 if __name__ == '__main__':
+    test_LEDsim_instruct_switch()
     sys.exit()
