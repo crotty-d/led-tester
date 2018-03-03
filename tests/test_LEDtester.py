@@ -24,8 +24,8 @@ from LEDtester import utils
 #     """
 #     import requests
 #     return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
-# 
-# 
+#  
+#  
 # def test_content(response):
 #     """Test content from response from uri (fixture)"""
 #     from bs4 import BeautifulSoup
@@ -123,29 +123,35 @@ def test_LEDsim_instruct_bounds():
         assert grid.lights[coord[0], coord[1]] == 1
     for coord in off_coords:
         assert grid.lights[coord[0], coord[1]] == 0
-        
+                
     # Check count
     assert grid.count() == 60
     
-# def test_LEDsim_instruct_all():
-#     L = 20
-#     grid = LEDsimulator.LEDgrid(L)
-#     instructions = ('turn on 0,0 through 9,9\n', 'turn off 0,0 through 4,4\n', 'switch 0,0 through 9,9\n')
-#     for i in instructions:
-#         grid.apply(instruction)
-#     
-#     print(grid.lights)
-#     
-#     # Check on/off pattern correct
-#     on_coords = ((0,0), (5,5), (0,9), (9,0))
-#     off_coords = ((10,10), (15,15), (0,10), (10,0))
-#     
-#     for coord in on_coords:
-#         assert grid.lights[coord[0], coord[1]] == 1
-#     for coord in off_coords:
-#         assert grid.lights[coord[0], coord[1]] == 0
+def test_LEDsim_instruct_invalid():
+    L = 20
+    grid = LEDsimulator.LEDgrid(L)
+    # Turn on initial group of lights and count
+    grid.lights[0:10, 0:10] = 1
+    count_init = grid.count()
+    # Apply invalid instructions
+    instructions = ['activate 5,5 through 15,15\n', 'turn off 5,s through 15,15\n', 'turn on 5,5 to 15,15']
+    for instruct in instructions:
+        grid.apply(instruct)
+    
+    print(grid.lights)
+    
+    # Check on/off pattern correct
+    on_coords = ((0,0), (5,5), (0,9), (9,0))
+    off_coords = ((10,10), (15,15), (0,10), (10,0))
+    
+    for coord in on_coords:
+        assert grid.lights[coord[0], coord[1]] == 1
+    for coord in off_coords:
+        assert grid.lights[coord[0], coord[1]] == 0
+        
+    # Check count has not changed from initial value, i.e. invalid instruction has been ignored
+    assert grid.count() == count_init
 
     
 if __name__ == '__main__':
-    test_LEDsim_instruct_switch()
     sys.exit()
