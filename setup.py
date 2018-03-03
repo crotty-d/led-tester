@@ -13,17 +13,14 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
-    # TODO: Put package requirements here
 ]
 
 setup_requirements = [
     'pytest-runner',
-    # TODO(crotty-d): Put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
     'pytest',
-    # TODO: Put package test requirements here
 ]
 
 setup(
@@ -37,7 +34,7 @@ setup(
     packages=find_packages(include=['LEDtester']),
     entry_points={
         'console_scripts': [
-            'LEDtester=LEDtester.cli:main',
+            'solve_led=LEDtester.cli:main',
         ],
     },
     include_package_data=True,

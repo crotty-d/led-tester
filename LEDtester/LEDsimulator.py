@@ -45,10 +45,10 @@ class LEDgrid:
                 self.lights[idx_ones] = 0
             else:
                 # There should be no other possibility here, but just in case invalid cmd slips through
-                print("The instruction ({}) contained an invalid command; only 'turn on', 'turn off' and 'switch' are permitted".format(instruction))
+                print("Error: The instruction ({}) contained an invalid command; only 'turn on', 'turn off' and 'switch' are permitted".format(instruction))
     
         else:
-            print("The instruction ({}) is not valid, so it was not applied; only 'turn on', 'turn off' and 'switch' are permitted as commands, and coordinates must be given in the format 'x1,y1 through x2,y2', where x1, y1, x2 and y2 are numerical values (will be converted to integers)".format(instruction))
+            print("Error: The instruction ({}) is not valid, so it was not applied; only 'turn on', 'turn off' and 'switch' are permitted as commands, and coordinates must be given in the format 'x1,y1 through x2,y2', where x1, y1, x2 and y2 are numerical values (will be converted to integers)".format(instruction))
     
     def count(self):
         """Returns the number of lights currently turned on (1)"""
