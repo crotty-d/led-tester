@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Console script for led_sim."""
+"""Console script for LEDtester."""
 
 import time
 
@@ -37,7 +37,7 @@ def main(input=None):
             print('Number of invalid instructions:', invalid_count)
             # Output time taken to calculate
             t2 = time.time()
-            print('Time to calculate:', t2 - t1, 'seconds')
+            print('Calculation time:', t2 - t1, 'seconds')
             
         else:
             raise ValueError

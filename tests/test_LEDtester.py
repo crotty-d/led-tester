@@ -70,7 +70,7 @@ def test_LEDsim_instruct_on():
     # Check count
     assert grid.count() == 100
     
-def test_LEDsim_instruct_switch(): #FIXME 
+def test_LEDsim_instruct_switch():
     L = 20
     grid = LEDsimulator.LEDgrid(L)
     grid.lights[0:10, 0:10] = 1
