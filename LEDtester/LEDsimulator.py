@@ -8,7 +8,7 @@ class LEDgrid:
     Class to represent grid of LEDs that be turned on and off in response to certain instructions
     """
     # Class variables
-    __lights = None
+    lights = None
     
     # Constructor
     def __init__(self, L):
@@ -28,27 +28,49 @@ class LEDgrid:
             # Assign the command to apply and the coordinates of the effected lights
             parts = parsed.groups()
             cmd = parts[0]
-            coords = [min(int(p), self.lights.shape[0] - 1) for p in parts[1:]] # min used in case instruction out of grid bounds
+            coords = []
+            for p in parts[1:]:
+                p = int(p)
+                if p >= 0:
+                    coords.append(min(p, self.lights.shape[0] - 1)) # min used in case instruction out of grid bounds
+                else:
+                    coords.append(0) # negative always outside bounds
+               
             x1, y1, x2, y2 = coords
                  
             # Apply command to grid of lights
             if cmd == 'turn on':
                 self.lights[x1:x2+1, y1:y2+1] = 1 # ranges are inclusive, hence +1
+                return 0
             elif cmd == 'turn off':
                 self.lights[x1:x2+1, y1:y2+1] = 0
+                return 0
             elif cmd == 'switch':
                 # Get indices of lights that are off (0) and then those that are on (1)
                 idx_zeros = np.where(self.lights[x1:x2+1, y1:y2+1] == 0)
                 idx_ones = np.where(self.lights[x1:x2+1, y1:y2+1] == 1)
+                idx0_offset =(idx_zeros[0] + x1, idx_zeros[1] + y1)
+                idx1_offset =(idx_ones[0] + x1, idx_ones[1] + y1)
                 # Switch them to opposite value
-                self.lights[idx_zeros] = 1
-                self.lights[idx_ones] = 0
+                self.lights[idx0_offset] = 1
+                self.lights[idx1_offset] = 0
+                
+                # Alternative simple iterative method (much slower)
+#                 for x in range(x1, x2+1):
+#                     for y in range(y1, y2+1):
+#                         if self.lights[x, y] == 0:
+#                             self.lights[x, y] = 1
+#                         else:
+#                             self.lights[x, y] = 0
+
+                return 0
+            
             else:
                 # There should be no other possibility here, but just in case invalid cmd slips through
-                print("Error: The instruction ({}) contained an invalid command; only 'turn on', 'turn off' and 'switch' are permitted".format(instruction))
-    
+                return 1
+   
         else:
-            print("Error: The instruction ({}) is not valid, so it was not applied; only 'turn on', 'turn off' and 'switch' are permitted as commands, and coordinates must be given in the format 'x1,y1 through x2,y2', where x1, y1, x2 and y2 are numerical values (will be converted to integers)".format(instruction))
+            return 1
     
     def count(self):
         """Returns the number of lights currently turned on (1)"""
