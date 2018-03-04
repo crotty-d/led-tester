@@ -10,10 +10,12 @@ click.disable_unicode_literals_warning = True
 from LEDtester import utils, LEDsimulator
 
 @click.command()
-@click.option("--input", default=None, help="input URI (file or URL)")
+@click.option('--input', default=None, help='Input URI (file or URL)')
 def main(input=None):
     """Console script for LEDtester."""
+    
     t1 = time.time()
+    
     try:
         if input != None:
             
@@ -26,11 +28,9 @@ def main(input=None):
             
             # Apply instructions to grid object
             invalid_count = 0
-            n_apply = 0
+
             for instruction in instructions:
                 invalid_count += grid.apply(instruction) # applies instruction and then returns 0, or 1 if invalid instruction
-                n_apply += 1
-                print(n_apply)
                 
             # Output number of lights that are on after all instructions carried out   
             print(grid.count(), 'LEDs are on')
@@ -44,9 +44,10 @@ def main(input=None):
     
     except ValueError:
         print("Error: No input argument was given. The command requires a single filepath or a URI as its argument.")
-            
+    
     return 0
 
 
 if __name__ == "__main__":
+    import sys
     sys.exit(main())
