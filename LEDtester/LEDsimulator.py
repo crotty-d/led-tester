@@ -46,15 +46,10 @@ class LEDgrid:
                 self.lights[x1:x2+1, y1:y2+1] = 0
                 return 0
             elif cmd == 'switch':
-                # Get indices of lights that are off (0) and then those that are on (1)
-                idx_zeros = np.where(self.lights[x1:x2+1, y1:y2+1] == 0)
-                idx_ones = np.where(self.lights[x1:x2+1, y1:y2+1] == 1)
-                idx0_offset =(idx_zeros[0] + x1, idx_zeros[1] + y1)
-                idx1_offset =(idx_ones[0] + x1, idx_ones[1] + y1)
-                # Switch them to opposite value
-                self.lights[idx0_offset] = 1
-                self.lights[idx1_offset] = 0
-                
+                # Switch lights to opposite values
+                self.lights[x1:x2+1, y1:y2+1][[self.lights[x1:x2+1, y1:y2+1] == 0]] = 1
+                self.lights[x1:x2+1, y1:y2+1][[self.lights[x1:x2+1, y1:y2+1] == 1]] = 0 # FIXME undoes some of the 0-->1 flips; both need to operate on original grid and then compbine
+                                
                 # Alternative simple iterative method (much slower)
 #                 for x in range(x1, x2+1):
 #                     for y in range(y1, y2+1):
