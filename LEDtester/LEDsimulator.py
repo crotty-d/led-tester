@@ -49,8 +49,8 @@ class LEDgrid:
                 # Get indices of lights that are off (0) and then those that are on (1)
                 idx_zeros = np.where(self.lights[y1:y2+1, x1:x2+1] == 0)
                 idx_ones = np.where(self.lights[y1:y2+1, x1:x2+1] == 1)
-                idx0_offset =(idx_zeros[0] + y1, idx_zeros[1] + x1)
-                idx1_offset =(idx_ones[0] + y1, idx_ones[1] + x1)
+                idx0_offset = (idx_zeros[0] + y1, idx_zeros[1] + x1)
+                idx1_offset = (idx_ones[0] + y1, idx_ones[1] + x1)
                 # Switch them to opposite value
                 self.lights[idx0_offset] = 1
                 self.lights[idx1_offset] = 0
