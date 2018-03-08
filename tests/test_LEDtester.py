@@ -61,13 +61,13 @@ def test_LEDsim_instruct_on():
     print(grid.lights.T)
     
     # Check on/off pattern correct
-    on_coords = ((0,0), (5,5), (0,9), (9,0))
-    off_coords = ((10,10), (15,15), (0,10), (10,0))
+    on_indices = ((0,0), (5,5), (0,9), (9,0))
+    off_indices = ((10,10), (15,15), (0,10), (10,0))
     
-    for coord in on_coords:
-        assert grid.lights[coord[0], coord[1]] == 1, coord
-    for coord in off_coords:
-        assert grid.lights[coord[0], coord[1]] == 0, coord
+    for index in on_indices:
+        assert grid.lights[index[0], index[1]] == 1, index
+    for index in off_indices:
+        assert grid.lights[index[0], index[1]] == 0, index
         
     # Check count
     assert grid.count() == 100
@@ -82,13 +82,13 @@ def test_LEDsim_instruct_switch():
     print(grid.lights.T)
     
     # Check on/off pattern correct
-    on_coords = ((0,0), (0,9), (9,0), (10,10))
-    off_coords = ((2,2), (2,9), (9,2), (12,12))
+    on_indices = ((0,0), (0,9), (9,0), (10,10))
+    off_indices = ((2,2), (2,9), (9,2), (12,12))
     
-    for coord in on_coords:
-        assert grid.lights[coord[0], coord[1]] == 1, coord
-    for coord in off_coords:
-        assert grid.lights[coord[0], coord[1]] == 0, coord
+    for index in on_indices:
+        assert grid.lights[index[0], index[1]] == 1, index
+    for index in off_indices:
+        assert grid.lights[index[0], index[1]] == 0, index
         
     # Check count
     assert grid.count() == 20 + 16 + 9 + 8
@@ -99,16 +99,16 @@ def test_LEDsim_instruct_bounds():
     instruction = 'turn on 0,0 through 15,5'
     grid.apply(instruction)
     
-    print(grid.lights.T)
+    print(grid.lights)
     
     # Check on/off pattern correct
-    on_coords = ((0,0), (5,5), (0,5), (9,0))
-    off_coords = ((9,9), (9,6), (0,9), (9,6))
+    on_indices = ((0,0), (5,5), (0,5), (0,9))
+    off_indices = ((9,9), (6,6), (9,0), (9,6))
     
-    for coord in on_coords:
-        assert grid.lights[coord[0], coord[1]] == 1
-    for coord in off_coords:
-        assert grid.lights[coord[0], coord[1]] == 0
+    for index in on_indices:
+        assert grid.lights[index[0], index[1]] == 1
+    for index in off_indices:
+        assert grid.lights[index[0], index[1]] == 0
                 
     # Check count
     assert grid.count() == 60
@@ -122,13 +122,13 @@ def test_LEDsim_instruct_invertedcoords():
     print(grid.lights.T)
     
     # Check on/off pattern correct
-    on_coords = ((1,1), (5,5), (1,5), (8,1))
-    off_coords = ((9,9), (9,0), (0,9), (0,0))
+    on_indices = ((1,1), (5,5), (1,5), (8,1))
+    off_indices = ((9,9), (9,0), (0,9), (0,0))
     
-    for coord in on_coords:
-        assert grid.lights[coord[0], coord[1]] == 1
-    for coord in off_coords:
-        assert grid.lights[coord[0], coord[1]] == 0
+    for index in on_indices:
+        assert grid.lights[index[0], index[1]] == 1
+    for index in off_indices:
+        assert grid.lights[index[0], index[1]] == 0
                 
     # Check count
     assert grid.count() == 64
@@ -147,13 +147,13 @@ def test_LEDsim_instruct_invalid():
     print(grid.lights)
     
     # Check on/off pattern correct
-    on_coords = ((0,0), (5,5), (0,9), (9,0))
-    off_coords = ((10,10), (15,15), (0,10), (10,0))
+    on_indices = ((0,0), (5,5), (0,9), (9,0))
+    off_indices = ((10,10), (15,15), (0,10), (10,0))
     
-    for coord in on_coords:
-        assert grid.lights[coord[0], coord[1]] == 1
-    for coord in off_coords:
-        assert grid.lights[coord[0], coord[1]] == 0
+    for index in on_indices:
+        assert grid.lights[index[0], index[1]] == 1
+    for index in off_indices:
+        assert grid.lights[index[0], index[1]] == 0
         
     # Check count has not changed from initial value, i.e. invalid instruction has been ignored
     assert grid.count() == count_init

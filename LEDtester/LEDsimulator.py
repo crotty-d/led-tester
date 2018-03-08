@@ -40,26 +40,26 @@ class LEDgrid:
                  
             # Apply command to grid of lights
             if cmd == 'turn on':
-                self.lights[x1:x2+1, y1:y2+1] = 1 # ranges are inclusive, hence +1
+                self.lights[y1:y2+1, x1:x2+1] = 1 # ranges are inclusive, hence +1
                 return 0
             elif cmd == 'turn off':
-                self.lights[x1:x2+1, y1:y2+1] = 0
+                self.lights[y1:y2+1, x1:x2+1] = 0
                 return 0
             elif cmd == 'switch':
                 # Get indices of lights that are off (0) and then those that are on (1)
-                idx_zeros = np.where(self.lights[x1:x2+1, y1:y2+1] == 0)
-                idx_ones = np.where(self.lights[x1:x2+1, y1:y2+1] == 1)
-                idx0_offset =(idx_zeros[0] + x1, idx_zeros[1] + y1)
-                idx1_offset =(idx_ones[0] + x1, idx_ones[1] + y1)
+                idx_zeros = np.where(self.lights[y1:y2+1, x1:x2+1] == 0)
+                idx_ones = np.where(self.lights[y1:y2+1, x1:x2+1] == 1)
+                idx0_offset =(idx_zeros[0] + y1, idx_zeros[1] + x1)
+                idx1_offset =(idx_ones[0] + y1, idx_ones[1] + x1)
                 # Switch them to opposite value
                 self.lights[idx0_offset] = 1
                 self.lights[idx1_offset] = 0
                 
                 # Alternative simple iterative method (much slower)
-#                 for x in range(x1, x2+1):
-#                     for y in range(y1, y2+1):
-#                         if self.lights[x, y] == 0:
-#                             self.lights[x, y] = 1
+#                 for x in range(y1, y2+1):
+#                     for x in range(x1, x2+1):
+#                         if self.lights[y, x] == 0:
+#                             self.lights[y, x] = 1
 #                         else:
 #                             self.lights[x, y] = 0
 
