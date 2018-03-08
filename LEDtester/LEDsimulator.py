@@ -36,7 +36,7 @@ class LEDgrid:
                 else:
                     coords.append(0) # negative always outside bounds
                
-            x1, y1, x2, y2 = coords
+            x1, y1, x2, y2 = min(coords[0], coords[2]), min(coords[1], coords[3]), max(coords[0], coords[2]), max(coords[1], coords[3])
                  
             # Apply command to grid of lights
             if cmd == 'turn on':

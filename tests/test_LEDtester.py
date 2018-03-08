@@ -113,6 +113,26 @@ def test_LEDsim_instruct_bounds():
     # Check count
     assert grid.count() == 60
     
+def test_LEDsim_instruct_invertedcoords():
+    L = 10
+    grid = LEDsimulator.LEDgrid(L)
+    instruction = 'turn on 8,8 through 1,1'
+    grid.apply(instruction)
+    
+    print(grid.lights.T)
+    
+    # Check on/off pattern correct
+    on_coords = ((1,1), (5,5), (1,5), (8,1))
+    off_coords = ((9,9), (9,0), (0,9), (0,0))
+    
+    for coord in on_coords:
+        assert grid.lights[coord[0], coord[1]] == 1
+    for coord in off_coords:
+        assert grid.lights[coord[0], coord[1]] == 0
+                
+    # Check count
+    assert grid.count() == 64
+    
 def test_LEDsim_instruct_invalid():
     L = 20
     grid = LEDsimulator.LEDgrid(L)
