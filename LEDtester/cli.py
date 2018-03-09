@@ -16,7 +16,7 @@ def main(input=None):
     
     t1 = time.time()
       
-    if input != None:
+    if not input == None:
               
         # Parse instructions from text file
         print('input:', input)

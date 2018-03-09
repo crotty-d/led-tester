@@ -48,23 +48,8 @@ def test_parse_invalid_filepath():
     print(grid.lights)
         
     assert grid.count() == 1
-
-def test_parse_invalid_uri():
-    file = 'http://dsafdfghklk.hkh/file'
-    L, instructions = utils.parse_file(file)
-    assert L == 0
-    assert instructions[0] == 'error'
     
-    grid = LEDsimulator.LEDgrid(10)
-    grid.lights[4,4] = 1
-        
-    for instruction in instructions:
-        grid.apply(instruction)
-        
-    print(grid.lights)
-        
-    assert grid.count() == 1
-  
+
 def test_LEDsim_construct():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
@@ -74,6 +59,7 @@ def test_LEDsim_construct():
     assert grid.lights.shape == (L, L)
     assert grid.lights.sum() == 0
     
+    
 def test_LEDsim_count():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
@@ -82,7 +68,8 @@ def test_LEDsim_count():
     
     grid.lights[2:5, 1:3] = 1
     print(grid.lights)
-    assert grid.count() == 6 
+    assert grid.count() == 6
+    
 
 def test_LEDsim_instruct_on():
     L = 20
@@ -103,6 +90,7 @@ def test_LEDsim_instruct_on():
         
     # Check count
     assert grid.count() == 100
+    
     
 def test_LEDsim_instruct_off():
     L = 20
@@ -125,6 +113,7 @@ def test_LEDsim_instruct_off():
     # Check count
     assert grid.count() == 300
     
+    
 def test_LEDsim_instruct_switch():
     L = 20
     grid = LEDsimulator.LEDgrid(L)
@@ -146,6 +135,7 @@ def test_LEDsim_instruct_switch():
     # Check count
     assert grid.count() == 20 + 16 + 9 + 8
     
+    
 def test_LEDsim_instruct_bounds():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
@@ -166,6 +156,7 @@ def test_LEDsim_instruct_bounds():
     # Check count
     assert grid.count() == 60
     
+    
 def test_LEDsim_instruct_invertedcoords():
     L = 10
     grid = LEDsimulator.LEDgrid(L)
@@ -185,6 +176,7 @@ def test_LEDsim_instruct_invertedcoords():
                 
     # Check count
     assert grid.count() == 64
+    
     
 def test_LEDsim_instruct_invalid():
     L = 20
