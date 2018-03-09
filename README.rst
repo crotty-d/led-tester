@@ -43,11 +43,12 @@ After applying the series of instructions, the number of lights that are on is c
 
 Usage
 -----
-* Installation: $> pip install git+https://github.com/crotty-d/led-tester
+* Installation via terminal: $>pip install git+https://github.com/crotty-d/led-tester
  * Ideally create  a dedicated virtual environment based on the requirements.txt file, and pip install into this
+ * Otherwise please ensure all requirements are met before running
 
-* Run: $> solve_led --input <local path or URI for instructions file>
- * Example: solve_led --input http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt
+* Run in terminal: [your_virtualenv]$>solve_led --input <local path or URI for instructions file>
+ * Example: $>solve_led --input http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt
 
 
 Package template credit
