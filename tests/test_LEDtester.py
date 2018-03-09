@@ -27,11 +27,43 @@ def test_command_line_interface():
     assert help_result.exit_code == 0
     assert '--help' in help_result.output
  
-def test_parse_file():
-    file = "./data/test_data.txt"
+def test_parse_valid_file():
+    file = './data/test_data.txt'
     L, instructions = utils.parse_file(file)
     assert L == 10
     assert instructions == ['turn on 0,0 through 9,9', 'turn off 0,0 through 9,9', 'switch 0,0 through 9,9', 'turn off 0,0 through 9,9', 'turn on 2,2 through 7,7']
+
+def test_parse_invalid_filepath():
+    file = './data/doesnotexist.txt'
+    L, instructions = utils.parse_file(file)
+    assert L == 0
+    assert instructions[0] == 'error'
+    
+    grid = LEDsimulator.LEDgrid(10)
+    grid.lights[4,4] = 1
+        
+    for instruction in instructions:
+        grid.apply(instruction)
+        
+    print(grid.lights)
+        
+    assert grid.count() == 1
+
+def test_parse_invalid_uri():
+    file = 'http://dsafdfghklk.hkh/file'
+    L, instructions = utils.parse_file(file)
+    assert L == 0
+    assert instructions[0] == 'error'
+    
+    grid = LEDsimulator.LEDgrid(10)
+    grid.lights[4,4] = 1
+        
+    for instruction in instructions:
+        grid.apply(instruction)
+        
+    print(grid.lights)
+        
+    assert grid.count() == 1
   
 def test_LEDsim_construct():
     L = 10
