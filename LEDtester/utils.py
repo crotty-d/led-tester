@@ -4,15 +4,28 @@ import requests
 
 def parse_file(file_location):
     if file_location.startswith('http'):
-        # Get instructions text from uri
-        uri = file_location
-        r = requests.get(uri).text
-        lines = r.split('\n')
-        L = int(lines[0])
-        instructions = lines[1:-1]
+        try:
+            # Get uri
+            uri = file_location
+            r = requests.get(uri)
+            # Get instructions text from uri if status code is 2xx; otherwise invalid response
+            if not r.status_code // 100 == 2:
+                content = requests.get(uri).text
+                lines = content.split('\n')
+                L = int(lines[0])
+                instructions = lines[1:-1]
+                
+                return L, instructions
+            
+            else:
+                print('Invalid response: {}'.format(r))
+                return 0, ['invalid response']
         
-        return L, instructions
-    
+        # Serious errors raised by requests module
+        except requests.exceptions.RequestException as e:
+            print('Error : {}'.format(e))
+            return 0, ['error']
+        
     else:
         # Read from local file                       
         L, instructions = None, []
